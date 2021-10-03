@@ -2,17 +2,25 @@ package com.ss.utopia.api.pojo;
 
 import java.util.List;
 
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+
 import javax.persistence.Table;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.ss.utopia.api.dao.AirplaneRepository;
 
 @Entity
 @Table(name = "airplane_type")
 public class AirplaneType {
 
+
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
@@ -40,7 +48,13 @@ public class AirplaneType {
 		this.max_capacity = max_capacity;
 	}
 	
-	@OneToMany(mappedBy="type_id")
-	List<Airplane> airplanes;
+////	@OneToMany(targetEntity=Airplane.class, cascade = CascadeType.ALL)
+////	@JoinColumn(name="type_id", referencedColumnName="id")
+//	@OneToMany(mappedBy="type_id")
+//	List<Airplane> airplanes;
+
+
+
+	
 
 }

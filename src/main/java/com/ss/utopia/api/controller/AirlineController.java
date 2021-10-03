@@ -1,7 +1,12 @@
 package com.ss.utopia.api.controller;
 
 import java.sql.SQLException;
+
+
+
 import java.util.List;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -54,13 +59,19 @@ public class AirlineController {
 	public List<AirplaneType> findAllAirplaneTypes() {
 		return airline_service.findAllAirplaneTypes();
 	}
+	
+	@Transactional
+	@RequestMapping(path = "/lms/find/airplane_type/{airplane_type_id}", method = RequestMethod.GET)
+	public List<Airplane> findAirplanesByType(@PathVariable Integer airplane_type_id) {
+		return airplane_repository.findByType(airplane_type_id);
+	}
 //	@RequestMapping(path = "/lms/findAllRoutes/{airport_code}", method = RequestMethod.GET)
 //	public List<Airport> findAllRoutes(@PathVariable String airport_code){
 //		return airport_repository.findAllRoutes(airport_code);
 //		
 //		
 //	}
-	
+//	
 //	@RequestMapping(path = "/lms/routes/{airport_code}", method = RequestMethod.GET)
 //	public List<Route> findAllRoutes(@PathVariable String airport_code) {
 //		Airport a = new Airport();
