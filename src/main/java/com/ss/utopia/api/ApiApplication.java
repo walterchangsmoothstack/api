@@ -8,7 +8,7 @@ import com.ss.utopia.api.dao.AirportRepository;
 
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackageClasses= AirportRepository.class)
+@EnableJpaRepositories()
 public class ApiApplication {
 
 	public static void main(String[] args) {

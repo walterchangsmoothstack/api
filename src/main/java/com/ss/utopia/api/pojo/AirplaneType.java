@@ -1,9 +1,12 @@
 package com.ss.utopia.api.pojo;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -36,5 +39,8 @@ public class AirplaneType {
 	public void setMax_capacity(Integer max_capacity) {
 		this.max_capacity = max_capacity;
 	}
+	
+	@OneToMany(mappedBy="type_id")
+	List<Airplane> airplanes;
 
 }

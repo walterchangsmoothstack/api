@@ -34,6 +34,8 @@ public class Airplane {
 		return "Airplane [id=" + id + ", type_id=" + type_id + "]";
 	}
 	
+	private AirplaneType airplane_type;
+	
 	
 
 }

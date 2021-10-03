@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ss.utopia.api.dao.AirplaneRepository;
+import com.ss.utopia.api.dao.AirportRepository;
 import com.ss.utopia.api.pojo.Airplane;
 import com.ss.utopia.api.pojo.AirplaneType;
 import com.ss.utopia.api.pojo.Airport;
 import com.ss.utopia.api.service.AirlineService;
+
 
 @RestController
 public class AirlineController {
@@ -22,7 +24,10 @@ public class AirlineController {
 	AirlineService airline_service;
 	
 	@Autowired
-	AirplaneRepository repo;
+	AirplaneRepository airplane_repository;
+	
+	@Autowired
+	AirportRepository airport_repository;
 	
 	@RequestMapping(path = "/lms/airports/{airport_code}", method = RequestMethod.GET)
 	public Airport getAirportById(@PathVariable String airport_code) {
@@ -49,24 +54,22 @@ public class AirlineController {
 	public List<AirplaneType> findAllAirplaneTypes() {
 		return airline_service.findAllAirplaneTypes();
 	}
+//	@RequestMapping(path = "/lms/findAllRoutes/{airport_code}", method = RequestMethod.GET)
+//	public List<Airport> findAllRoutes(@PathVariable String airport_code){
+//		return airport_repository.findAllRoutes(airport_code);
+//		
+//		
+//	}
 	
-	@RequestMapping(path = "/lms/airplane_types/save", method = RequestMethod.GET)
-	public Airplane saveAirplane() {
-		Airport p = new Airport();
-		p.setCity("asdf");
-		p.setIataId("KFC");
-		
-		Airplane a = new Airplane();
-		a.setType_id(14);
-		
-		AirplaneType at = new AirplaneType();
-		at.setId(20000);
-		at.setMax_capacity(100000);
-
-			return airline_service.save(a);
-			//airline_service.save(at);
-		
-	}
+//	@RequestMapping(path = "/lms/routes/{airport_code}", method = RequestMethod.GET)
+//	public List<Route> findAllRoutes(@PathVariable String airport_code) {
+//		Airport a = new Airport();
+//		a.setIataId(airport_code);
+//		return a.getRoutes();
+//	}
+	
+	
+	
 	
 	
 	
