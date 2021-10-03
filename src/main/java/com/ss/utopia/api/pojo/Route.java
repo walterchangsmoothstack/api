@@ -15,8 +15,8 @@ public class Route {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	
-	private Airport origin_id;
-	private Airport destination_id;
+	private String origin_id;
+	private String destination_id;
 	
 	
 	public Integer getId() {
@@ -24,22 +24,22 @@ public class Route {
 	}
 
 
-	public Airport getOrigin_id() {
+	public String getOrigin_id() {
 		return origin_id;
 	}
 
 
-	public void setOrigin_id(Airport origin_id) {
+	public void setOrigin_id(String origin_id) {
 		this.origin_id = origin_id;
 	}
 
 
-	public Airport getDestination_id() {
+	public String getDestination_id() {
 		return destination_id;
 	}
 
 
-	public void setDestination_id(Airport destination_id) {
+	public void setDestination_id(String destination_id) {
 		this.destination_id = destination_id;
 	}
 
@@ -49,9 +49,13 @@ public class Route {
 	}
 
 
+	@Override
+	public String toString() {
+		return "Route [id=" + id + ", origin_id=" + origin_id + ", destination_id=" + destination_id + "]";
+	}
+
+
 	
-
-
 
 
 	
