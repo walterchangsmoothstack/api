@@ -1,42 +1,41 @@
 package com.ss.utopia.api.pojo;
 
 import javax.persistence.Entity;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.stereotype.Component;
-
 @Entity
-@Table(name="airplane")
-public class Airplane {
+@Table(name="user_role")
+public class UserRole {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
-	private Integer type_id;
+	private String name;
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Integer getType_id() {
-		return type_id;
+
+	public String getName() {
+		return name;
 	}
-	public void setType_id(Integer type_id) {
-		this.type_id = type_id;
+
+	public void setName(String name) {
+		this.name = name;
 	}
+
 	@Override
 	public String toString() {
-		return "Airplane [id=" + id + ", type_id=" + type_id + "]";
+		return "UserRole [id=" + id + ", name=" + name + "]";
 	}
-	
-	
 	
 
 }

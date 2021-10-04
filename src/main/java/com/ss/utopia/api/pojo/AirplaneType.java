@@ -8,7 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,10 +49,9 @@ public class AirplaneType {
 		this.max_capacity = max_capacity;
 	}
 	
-////	@OneToMany(targetEntity=Airplane.class, cascade = CascadeType.ALL)
-////	@JoinColumn(name="type_id", referencedColumnName="id")
-//	@OneToMany(mappedBy="type_id")
-//	List<Airplane> airplanes;
+	@OneToMany(orphanRemoval=true)
+	@JoinColumn(name="type_id")
+	List<Airplane> airplanes;
 
 
 

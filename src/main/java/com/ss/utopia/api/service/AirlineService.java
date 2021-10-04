@@ -2,6 +2,7 @@ package com.ss.utopia.api.service;
 
 import java.util.List;
 
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,12 @@ import com.ss.utopia.api.dao.AirplaneRepository;
 import com.ss.utopia.api.dao.AirplaneTypeRepository;
 import com.ss.utopia.api.dao.AirportRepository;
 import com.ss.utopia.api.dao.FlightRepository;
+import com.ss.utopia.api.dao.RouteRepository;
 import com.ss.utopia.api.pojo.Airplane;
 import com.ss.utopia.api.pojo.AirplaneType;
 import com.ss.utopia.api.pojo.Airport;
 import com.ss.utopia.api.pojo.Flight;
+import com.ss.utopia.api.pojo.Route;
 
 @Service
 public class AirlineService {
@@ -35,14 +38,19 @@ public class AirlineService {
 	
 	@Autowired
 	FlightRepository flight_repository;
+	
+	@Autowired
+	RouteRepository route_repository;
 
 	public List<Airport> findAllAirports() {
 		return airport_repository.findAll();
 	}
 
 	public Airport getAirportById(String airport_code) {
-		Optional<Airport> airport = airport_repository.findById(airport_code);
-		return airport.get();
+		if(airport_code == null) {
+			return null;
+		}	
+		return airport_repository.findById(airport_code.toUpperCase()).get();
 
 	}
 
@@ -131,10 +139,27 @@ public class AirlineService {
 	}
 	
 	
-	
-	
-	
-	
-	
+	public Route save(Route route) {try {
 
+		return route_repository.save(route);
+		
+	} catch (IllegalArgumentException e) {
+
+		// e.printStackTrace();
+		return null;
+	}
+	}
+	
+	public List<Route> findAllRoutes(){
+		return route_repository.findAll();
+	}
+	
+	public Route getRouteById(Integer route_id) {
+		return route_repository.existsById(route_id) ? route_repository.getById(route_id) : null;
+	}
+	
+	
+	public void deleteRoute(Integer route_id) {
+		route_repository.deleteById(route_id);
+	}
 }

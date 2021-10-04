@@ -13,10 +13,9 @@ import com.ss.utopia.api.pojo.Airport;
 public interface AirportRepository extends JpaRepository<Airport, String> {
 
 	
-//	@Query("SELECT r.destination_id, a.city FROM airport a JOIN route r WHERE ?1 = r.origin_id")
+//	@Query(value="SELECT * FROM airport a JOIN route r WHERE ?1 = r.origin_id", nativeQuery=true)
 //	public List<Airport> findAllRoutes(String airportCode);
 	
-	Optional<Airport> findById(String airportCode);
 	
 
 	
