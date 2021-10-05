@@ -45,13 +45,12 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		System.out.println("configure HTTP");
 		httpSecurity.csrf().disable();
-		httpSecurity.authorizeRequests().antMatchers("/**").hasRole("ADMIN").antMatchers("/lms/user").hasRole("USER")
-				.antMatchers("/lms/guest").permitAll().antMatchers("/authenticate").permitAll().anyRequest()
-				.authenticated().and().exceptionHandling();
+		httpSecurity.authorizeRequests().antMatchers("/lms/admin").hasRole("ADMIN").antMatchers("/lms/user/**").hasAnyRole("USER", "ADMIN")
+				.antMatchers("/lms/guest").permitAll();
 
-		httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		//httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		httpSecurity.formLogin();
-		httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+		//httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
 	}
 

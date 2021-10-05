@@ -67,49 +67,49 @@ public class AirlineController {
 	
 	
 	
-//	@RequestMapping(path = "/lms/airports/{airport_code}", method = RequestMethod.GET)
-//	public ResponseEntity<Airport> getAirportById(@PathVariable String airport_code) {
-//		return ResponseEntity.ok().body(airline_service.getAirportById(airport_code));
-//	}
-//	@RequestMapping(path = "/lms/airports", method = RequestMethod.GET)
-//	public ResponseEntity<List<Airport>> findAllAirports() {
-//		return ResponseEntity.ok().body(airline_service.findAllAirports());
-//	}
-//	
-//	@RequestMapping(path = "/lms/airplanes", method = RequestMethod.GET)
-//	public ResponseEntity<List<Airplane>> findAllAirplanes() {
-//		return ResponseEntity.ok().body(airline_service.findAllAirplanes());
-//	}
-//	@RequestMapping(path = "/lms/airplanes/{airplane_id}", method = RequestMethod.GET)
-//	public ResponseEntity<Airplane> getAirplaneById(@PathVariable Integer airplane_id) {
-//		return ResponseEntity.ok().body(airline_service.getAirplaneById(airplane_id));
-//	}
-//	@RequestMapping(path = "/lms/airplane_types/{airplane_type_id}", method = RequestMethod.GET)
-//	public ResponseEntity<AirplaneType> getAirplaneTypeById(@PathVariable Integer airplane_type_id) {
-//		return ResponseEntity.ok().body(airline_service.getAirplaneTypeById(airplane_type_id));
-//	}
-//	@RequestMapping(path = "/lms/airplane_types", method = RequestMethod.GET)
-//	public ResponseEntity<List<AirplaneType>> findAllAirplaneTypes() {
-//		return ResponseEntity.ok().body(airline_service.findAllAirplaneTypes());
-//	}
-//	
-//	@RequestMapping(path = "/lms/save/airplane", method = RequestMethod.GET)
-//	public ResponseEntity<List<AirplaneType>> saveAirplane(@RequestBody Airplane airplane) {
-//		URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/save/airplane").toUriString());
-//		return ResponseEntity.created(uri).body(airline_service.findAllAirplaneTypes());
-//	}
-//	
-//	
-//	@RequestMapping(path = "/lms/find/airplane_type/{airplane_type_id}", method = RequestMethod.GET)
-//	public ResponseEntity<List<Airplane>> findAirplanesByType(@PathVariable Integer airplane_type_id) {
-//		return ResponseEntity.ok().body(airplane_repository.findByType(airplane_type_id));
-//	}
-//	
-//	
-//	@RequestMapping(path = "/lms/find/destination_airports/{airport_code}", method = RequestMethod.GET)
-//	public ResponseEntity<List<Route>> findValidDestinationAirport(@PathVariable String airport_code) {
-//			return ResponseEntity.ok().body(airline_service.getAirportById(airport_code).getAs_origin());
-//		}
+	@RequestMapping(path = "/lms/airports/{airport_code}", method = RequestMethod.GET)
+	public ResponseEntity<Airport> getAirportById(@PathVariable String airport_code) {
+		return ResponseEntity.ok().body(airline_service.getAirportById(airport_code));
+	}
+	@RequestMapping(path = "/lms/airports", method = RequestMethod.GET)
+	public ResponseEntity<List<Airport>> findAllAirports() {
+		return ResponseEntity.ok().body(airline_service.findAllAirports());
+	}
+	
+	@RequestMapping(path = "/lms/airplanes", method = RequestMethod.GET)
+	public ResponseEntity<List<Airplane>> findAllAirplanes() {
+		return ResponseEntity.ok().body(airline_service.findAllAirplanes());
+	}
+	@RequestMapping(path = "/lms/airplanes/{airplane_id}", method = RequestMethod.GET)
+	public ResponseEntity<Airplane> getAirplaneById(@PathVariable Integer airplane_id) {
+		return ResponseEntity.ok().body(airline_service.getAirplaneById(airplane_id));
+	}
+	@RequestMapping(path = "/lms/airplane_types/{airplane_type_id}", method = RequestMethod.GET)
+	public ResponseEntity<AirplaneType> getAirplaneTypeById(@PathVariable Integer airplane_type_id) {
+		return ResponseEntity.ok().body(airline_service.getAirplaneTypeById(airplane_type_id));
+	}
+	@RequestMapping(path = "/lms/airplane_types", method = RequestMethod.GET)
+	public ResponseEntity<List<AirplaneType>> findAllAirplaneTypes() {
+		return ResponseEntity.ok().body(airline_service.findAllAirplaneTypes());
+	}
+	
+	@RequestMapping(path = "/lms/save/airplane", method = RequestMethod.GET)
+	public ResponseEntity<List<AirplaneType>> saveAirplane(@RequestBody Airplane airplane) {
+		URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/save/airplane").toUriString());
+		return ResponseEntity.created(uri).body(airline_service.findAllAirplaneTypes());
+	}
+	
+	
+	@RequestMapping(path = "/lms/find/airplane_type/{airplane_type_id}", method = RequestMethod.GET)
+	public ResponseEntity<List<Airplane>> findAirplanesByType(@PathVariable Integer airplane_type_id) {
+		return ResponseEntity.ok().body(airplane_repository.findByType(airplane_type_id));
+	}
+	
+	
+	@RequestMapping(path = "/lms/find/destination_airports/{airport_code}", method = RequestMethod.GET)
+	public ResponseEntity<List<Route>> findValidDestinationAirport(@PathVariable String airport_code) {
+			return ResponseEntity.ok().body(airline_service.getAirportById(airport_code).getAs_origin());
+		}
 	
 	@Transactional
 	@GetMapping("/find/insert")
