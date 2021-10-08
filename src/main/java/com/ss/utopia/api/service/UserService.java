@@ -1,7 +1,9 @@
 package com.ss.utopia.api.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,25 +54,13 @@ public class UserService {
 		user_repository.deleteById(user_id);
 	}
 	
-	public List<Booking> getBookingByUsername(String username){
-		return user_repository.findByUsername(username).get().getBookingMethod()
-				.stream().map(b -> ((BookingType)b).getBooking()).collect(Collectors.toList());
-	}
-	public Passenger save(Passenger passenger) {
-		return passenger_repository.save(passenger);
-	}
 	public void deletePassenger(Integer passenger_id) {
 		passenger_repository.deleteById(passenger_id);
 	}
 	
-	public List<Booking> getBookingByUsernameQuery(String username){
-		return booking_repository.getBookingsByUser(username);
 
-	}
 	
-	public List<Flight> getFlightByBookingId(List<Booking> bookings){
-		return bookings.stream().map(x -> flight_repository.getFlightByBooking(x.getId())).collect(Collectors.toList());
-	}
+
 	
 	
 	

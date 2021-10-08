@@ -3,13 +3,13 @@ package com.ss.utopia.api.service;
 import java.util.List;
 
 
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
-import com.ss.utopia.api.dao.AirplaneDAO;
 import com.ss.utopia.api.dao.AirplaneRepository;
 import com.ss.utopia.api.dao.AirplaneTypeRepository;
 import com.ss.utopia.api.dao.AirportRepository;
@@ -24,8 +24,6 @@ import com.ss.utopia.api.pojo.Route;
 @Service
 public class AirlineService {
 
-	@Autowired
-	AirplaneDAO adao;
 
 	@Autowired
 	AirportRepository airport_repository;
@@ -50,13 +48,19 @@ public class AirlineService {
 		if(airport_code == null) {
 			return null;
 		}	
-		return airport_repository.findById(airport_code.toUpperCase()).get();
+		return airport_repository.getAirportById(airport_code.toUpperCase()).get();
 
 	}
 
 	public void deleteAirport(String airport_code) {
 		airport_repository.deleteById(airport_code);
 	}
+	
+	public void deleteAirportById(String airport_code) {
+		
+		airport_repository.deleteAirportById(airport_code);
+	}
+	
 
 	public Airport save(Airport airport) {
 		try {
