@@ -1,4 +1,4 @@
-package com.ss.utopia.api.models;
+package com.ss.utopia.api.configs;
 
 import java.io.Serializable;
 

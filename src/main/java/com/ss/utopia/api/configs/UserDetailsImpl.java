@@ -1,4 +1,4 @@
-package com.ss.utopia.api.service;
+package com.ss.utopia.api.configs;
 
 import java.util.Collection;
 

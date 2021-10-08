@@ -1,4 +1,4 @@
-package com.ss.utopia.api.service;
+package com.ss.utopia.api.configs;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -30,6 +30,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 //		
 //		
 //		System.out.println("inside UserDetailService");
+		
 		Optional<User> user= userRepository.findByUsername(username);
 		System.out.println(user);
 		user.orElseThrow(() -> new UsernameNotFoundException("not found" + username));

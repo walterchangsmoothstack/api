@@ -1,4 +1,4 @@
-package com.ss.utopia.api.controller;
+package com.ss.utopia.api.configs;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,9 +25,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.ss.utopia.api.filter.JwtFilter;
-import com.ss.utopia.api.models.AuthenticationRequest;
-import com.ss.utopia.api.models.AuthenticationResponse;
-import com.ss.utopia.api.service.UserDetailServiceImpl;
 import com.ss.utopia.api.util.JwtUtil;
 
 @RestController

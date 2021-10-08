@@ -1,6 +1,7 @@
-package com.ss.utopia.api.controller;
+package com.ss.utopia.api.configs;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -11,6 +12,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.ss.utopia.api.filter.JwtFilter;
@@ -38,18 +41,25 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	@Bean
 	public AuthenticationManager authenticationManagerBean() throws Exception {
+
 		return super.authenticationManagerBean();
+	}
+
+	@Bean
+	public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
+	    return new MySimpleUrlAuthenticationSuccessHandler();
 	}
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		System.out.println("configure HTTP");
 		httpSecurity.csrf().disable();
-		httpSecurity.authorizeRequests().antMatchers("/lms/admin").hasRole("ADMIN").antMatchers("/lms/user/**").hasAnyRole("USER", "ADMIN")
-				.antMatchers("/lms/guest").permitAll();
+		httpSecurity.authorizeRequests().antMatchers("/admin").hasRole("ADMIN").antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+				.antMatchers("/guest").permitAll();
 
 		//httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		httpSecurity.formLogin();
+		httpSecurity.formLogin().loginProcessingUrl("/login")
+		.successHandler(myAuthenticationSuccessHandler());
 		//httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
 	}

@@ -9,7 +9,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.ss.utopia.api.service.UserDetailServiceImpl;
+import com.ss.utopia.api.configs.UserDetailServiceImpl;
 import com.ss.utopia.api.util.JwtUtil;
 
 import javax.servlet.FilterChain;

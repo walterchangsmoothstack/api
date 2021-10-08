@@ -10,11 +10,8 @@ public class BookingPayment {
 	
 	@Id
 	Integer booking_id;
-	@Override
-	public String toString() {
-		return "BookingPayment [booking_id=" + booking_id + ", stripe_id=" + stripe_id + ", is_refunded=" + is_refunded
-				+ "]";
-	}
+	String stripe_id;
+	Boolean refunded;
 	public Integer getBooking_id() {
 		return booking_id;
 	}
@@ -27,13 +24,18 @@ public class BookingPayment {
 	public void setStripe_id(String stripe_id) {
 		this.stripe_id = stripe_id;
 	}
-	public Boolean getIs_refunded() {
-		return is_refunded;
+	public Boolean getRefunded() {
+		return refunded;
 	}
-	public void setIs_refunded(Boolean is_refunded) {
-		this.is_refunded = is_refunded;
+	public void setRefunded(Boolean refunded) {
+		this.refunded = refunded;
 	}
-	String stripe_id;
-	Boolean is_refunded;
+	@Override
+	public String toString() {
+		return "BookingPayment [booking_id=" + booking_id + ", stripe_id=" + stripe_id + ", refunded=" + refunded + "]";
+	}
+	
+	
+	
 
 }

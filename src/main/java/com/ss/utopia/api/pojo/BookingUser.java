@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="booking_user")
-public class BookingUser extends BookingType{
+public class BookingUser{
 
 	@Id
 	private Integer booking_id;
@@ -37,17 +37,17 @@ public class BookingUser extends BookingType{
 		this.user_id = user_id;
 	}
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="booking_id", referencedColumnName = "id")
-	Booking booking;
-
-	@Override
-	public Booking getBooking() {
-		return booking;
-	}
-	@Override
-	public void setBooking(Booking booking) {
-		this.booking = booking;
-	}
+//	@OneToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name="booking_id", referencedColumnName = "id")
+//	Booking booking;
+//
+//	@Override
+//	public Booking getBooking() {
+//		return booking;
+//	}
+//	@Override
+//	public void setBooking(Booking booking) {
+//		this.booking = booking;
+//	}
 	
 }

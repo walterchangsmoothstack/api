@@ -1,6 +1,7 @@
 package com.ss.utopia.api.controller;
 
 import java.net.URI;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,12 +12,16 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -32,7 +37,6 @@ import com.ss.utopia.api.service.AirlineService;
 
 
 @RestController
-@RequestMapping("/lms")
 public class AirlineController {
 
 	@Autowired
@@ -47,26 +51,31 @@ public class AirlineController {
 	@Autowired
 	AirportRepository airport_repository;
 	
-	
 	@Autowired
 	RouteRepository route_repository;
 	
-	@GetMapping("/user")
-	public String userAndAgent() {
-		return "For Booking";
+	@GetMapping(path = "/airport")
+	public String getAirport(Model model) {
+		model.addAttribute("listAirports", airline_service.findAllAirports());
+		return "showAirports";
+	}
+	@GetMapping(path = "/airport/{airport_code}")
+	public Airport getAirport(@PathVariable String airport_code) {
+		return airport_repository.findById(airport_code).get();
 	}
 	
-	@GetMapping("/admin")
-	public String admin() {
-		return "For Manipulating";
+
+	
+	@RequestMapping(path = "/traveler", method = RequestMethod.GET)
+	public String welcome1() {
+		return "welcome traveler";
 	}
-	@GetMapping("/guest")
-	public String everyone() {
-		return "For Reading";
+	@RequestMapping(path = "/agent", method = RequestMethod.GET)
+	public String welcome2() {
+		return "welcome agent";
 	}
 	
-	
-	
+
 	@RequestMapping(path = "/lms/airports/{airport_code}", method = RequestMethod.GET)
 	public ResponseEntity<Airport> getAirportById(@PathVariable String airport_code) {
 		return ResponseEntity.ok().body(airline_service.getAirportById(airport_code));
@@ -111,8 +120,21 @@ public class AirlineController {
 			return ResponseEntity.ok().body(airline_service.getAirportById(airport_code).getAs_origin());
 		}
 	
+	@RequestMapping(path = "/lms/find/origin_airports/{airport_code}", method = RequestMethod.GET)
+	public ResponseEntity<List<Route>> findValidOriginAirport(@PathVariable String airport_code) {
+			return ResponseEntity.ok().body(airline_service.getAirportById(airport_code).getAs_destination());
+		}
+	
+	@Modifying
+	@Transactional	
+	@GetMapping(path = "/lms/delete/{airport_code}")
+	public void deleteAirport(@PathVariable String airport_code) {
+		airline_service.deleteAirportById(airport_code);
+		//airline_service.deleteAirport(airport_code);
+	}
+	
 	@Transactional
-	@GetMapping("/find/insert")
+	@GetMapping(path = "/find/insert")
 	public void test() {
 
 //		airline_service.deleteAirport(airline_service.getAirportById("YYY").getIataId());
