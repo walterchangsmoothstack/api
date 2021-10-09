@@ -33,14 +33,18 @@ public class BookingService {
 	
 	
 	public List<Booking> findAllBookings(){
-		System.out.println(booking_repository.findAll());
 		return booking_repository.findAll();
+	}
+	
+	public List<Passenger> findAllPassengers(){
+		return passenger_repository.findAll();
 	}
 	
 	public List<Passenger> getPassengerByBooking(List<Booking> bookings){
 
 		return bookings.stream().map(x -> passenger_repository.getPassengerByBookingId(x.getId())).flatMap(List::stream).collect(Collectors.toList());
 	}
+	
 	
 	public List<Booking> getBookingByUsernameQuery(String username){
 		return booking_repository.getBookingsByUser(username);
@@ -55,13 +59,27 @@ public class BookingService {
 		return passenger_repository.save(passenger);
 	}
 	
+	public Booking save(Booking booking) {
+		return booking_repository.save(booking);
+	}
+	
+	
 	public List<Flight> getFlightByBookingId(List<Booking> bookings){
 		return bookings.stream().map(x -> flight_repository.getFlightByBooking(x.getId())).collect(Collectors.toList());
+	}
+	
+	public Booking findBookingById(Integer booking_id) {
+		return booking_repository.findById(booking_id).get();
 	}
 	
 	public Booking getBookingById(Integer booking_id) {
 		return booking_repository.getById(booking_id);
 	}
+	
+	public Passenger findPassengerById(Integer passenger_id) {
+		return passenger_repository.findById(passenger_id).get();
+	}
+	
 	
 	public void deletePassengerById(Integer passenger_id) {
 		passenger_repository.deleteById(passenger_id);

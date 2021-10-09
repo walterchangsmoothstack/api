@@ -62,54 +62,53 @@ public class Booking {
 		return passengers;
 	}
 	
-	public BookingAgent getBooking_agent() {
-		return booking_agent;
-	}
-	public void setBooking_agent(BookingAgent booking_agent) {
-		this.booking_agent = booking_agent;
-	}
-	public BookingUser getBooking_user() {
-		return booking_user;
-	}
-	public void setBooking_user(BookingUser booking_user) {
-		this.booking_user = booking_user;
-	}
 	public void setPassengers(List<Passenger> passengers) {
 		this.passengers = passengers;
 	}
 	
-	public BookingPayment getBooking_payment() {
-		return booking_payment;
-	}
-	public void setBooking_payment(BookingPayment booking_payment) {
-		this.booking_payment = booking_payment;
-	}
-	public FlightBookings getFlight_bookings() {
-		return flight_bookings;
-	}
-	
-	
-	public void setFlight_bookings(FlightBookings flight_bookings) {
-		this.flight_bookings = flight_bookings;
-	}
-	
-	@OneToOne(targetEntity=BookingPayment.class, cascade = CascadeType.ALL)
-	BookingPayment booking_payment;
-	
-	@OneToOne(targetEntity=FlightBookings.class, cascade = CascadeType.ALL)
-	FlightBookings flight_bookings;
-	
-	
-	@OneToOne(targetEntity=BookingGuest.class, fetch = FetchType.LAZY)
-	BookingGuest booking_guest;
-	
-	@OneToOne(targetEntity=BookingAgent.class, fetch = FetchType.LAZY)
-
-	BookingAgent booking_agent;
-	
-	@OneToOne(targetEntity=BookingUser.class, fetch = FetchType.LAZY)
-
-	BookingUser booking_user;
+//	public BookingAgent getBooking_agent() {
+//		return booking_agent;
+//	}
+//	public void setBooking_agent(BookingAgent booking_agent) {
+//		this.booking_agent = booking_agent;
+//	}
+//	public BookingUser getBooking_user() {
+//		return booking_user;
+//	}
+//	public void setBooking_user(BookingUser booking_user) {
+//		this.booking_user = booking_user;
+//	}
+//	
+//	public BookingPayment getBooking_payment() {
+//		return booking_payment;
+//	}
+//	public void setBooking_payment(BookingPayment booking_payment) {
+//		this.booking_payment = booking_payment;
+//	}
+//	public FlightBookings getFlight_bookings() {
+//		return flight_bookings;
+//	}
+//	
+//	
+//	public void setFlight_bookings(FlightBookings flight_bookings) {
+//		this.flight_bookings = flight_bookings;
+//	}
+//	
+//	@OneToOne(fetch = FetchType.LAZY)
+//	BookingPayment booking_payment;
+//	
+//	@OneToOne(fetch = FetchType.LAZY)
+//	FlightBookings flight_bookings;
+//	
+//	
+//	@OneToOne(targetEntity=BookingGuest.class, fetch = FetchType.LAZY)
+//	BookingGuest booking_guest;
+//	
+//	@OneToOne(targetEntity=BookingAgent.class, fetch = FetchType.LAZY)
+//	BookingAgent booking_agent;
+//	
+//	@OneToOne(targetEntity=BookingUser.class, fetch = FetchType.LAZY)
+//	BookingUser booking_user;
 
 	
 	
