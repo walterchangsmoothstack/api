@@ -111,6 +111,25 @@ public class BookingController {
 	public Booking addBooking(@RequestBody Booking booking) {
 		return booking_service.save(booking);
 	}
+	
+	@PostMapping("/booking/add/booking/booking_agent/{agent_id}/{flight_id}")
+	public Booking addBookingByAgent(@RequestBody Passenger passenger, @PathVariable Integer agent_id,
+			@PathVariable Integer flight_id) {
+		return booking_service.saveBookingAgentBooking(passenger, agent_id, flight_id);
+	}
+	
+//	@PostMapping("/booking/add/booking/booking_agent/{agent_id}/{flight_id}")
+//	public Booking addBookingByAgent(@RequestBody List<Passenger> passengers, @PathVariable Integer agent_id,
+//			@PathVariable Integer flight_id) {
+//		return booking_service.saveBookingAgentBooking(booking, agent_id, flight_id);
+//	}
+	
+	@PostMapping("/booking/add/booking/booking_user/{user_id}/{flight_id}")
+	public Booking addBookingByUser(@RequestBody Passenger passenger, @PathVariable Integer user_id,
+			@PathVariable Integer flight_id) {
+		return booking_service.saveBookingUserBooking(passenger, user_id, flight_id);
+	}
+	
 
 	@PostMapping("/booking/add/passenger")
 	public Passenger addPassenger(@RequestBody Passenger passenger) {
