@@ -103,7 +103,7 @@ public class Booking {
 //	
 //	@OneToOne(targetEntity=BookingGuest.class, fetch = FetchType.LAZY)
 //	BookingGuest booking_guest;
-//	
+	
 //	@OneToOne(targetEntity=BookingAgent.class, fetch = FetchType.LAZY)
 //	BookingAgent booking_agent;
 //	

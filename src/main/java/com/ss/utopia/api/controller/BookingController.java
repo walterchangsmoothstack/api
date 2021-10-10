@@ -1,5 +1,6 @@
 package com.ss.utopia.api.controller;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.ss.utopia.api.pojo.Booking;
 import com.ss.utopia.api.pojo.Flight;
@@ -124,10 +126,12 @@ public class BookingController {
 //		return booking_service.saveBookingAgentBooking(booking, agent_id, flight_id);
 //	}
 	
-	@PostMapping("/booking/add/booking/booking_user/{user_id}/{flight_id}")
-	public Booking addBookingByUser(@RequestBody Passenger passenger, @PathVariable Integer user_id,
+	@PostMapping("/add/booking_user/userId={user_id}/flightId={flight_id}")
+	public ResponseEntity<Booking> addBookingByUser(@RequestBody Passenger passenger, @PathVariable Integer user_id,
 			@PathVariable Integer flight_id) {
-		return booking_service.saveBookingUserBooking(passenger, user_id, flight_id);
+		URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/add/booking_user").toUriString());
+
+		return ResponseEntity.created(uri).body(booking_service.saveBookingUserBooking(passenger, user_id, flight_id));
 	}
 	
 

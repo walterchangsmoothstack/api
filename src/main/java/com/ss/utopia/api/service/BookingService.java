@@ -2,6 +2,7 @@ package com.ss.utopia.api.service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -28,6 +29,7 @@ import com.ss.utopia.api.pojo.BookingUser;
 import com.ss.utopia.api.pojo.Flight;
 import com.ss.utopia.api.pojo.FlightBookings;
 import com.ss.utopia.api.pojo.Passenger;
+import com.ss.utopia.api.pojo.User;
 
 @Service
 public class BookingService {
@@ -193,6 +195,13 @@ public class BookingService {
 		return booking;
 
 	}
+	
+	
+	
+	public Optional<User> findUserByBookingId(Integer booking_id){
+		return user_repository.findUserByBookingId(booking_id);
+		
+	}
 
 	public String generateConfirmationCode() {
 		String s = "";
@@ -209,6 +218,10 @@ public class BookingService {
 		return s;
 	}
 
+	public Integer generateBooking_Id() {
+		return 1;
+	}
+	
 	public String generateStripeId() {
 		String s = "";
 		Random random = new Random();
