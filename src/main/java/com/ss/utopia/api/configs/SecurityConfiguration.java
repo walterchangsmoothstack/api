@@ -54,7 +54,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		System.out.println("configure HTTP");
 		httpSecurity.csrf().disable();
-		httpSecurity.authorizeRequests().antMatchers("/admin").hasRole("ADMIN").antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+		httpSecurity.authorizeRequests().antMatchers("/admin").hasRole("ADMIN").antMatchers("/use2r/**").hasAnyRole("USER", "ADMIN")
 				.antMatchers("/guest").permitAll();
 
 		//httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

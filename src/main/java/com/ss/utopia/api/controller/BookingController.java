@@ -91,25 +91,12 @@ public class BookingController {
 		return ResponseEntity.ok().body(booking_service.getRefundedBookings());
 	}
 
-
-
-//	@Transactional
-//	@GetMapping("/bookings/cancel/{booking_id}/old")
-//	public ResponseEntity<Boolean> cancelBooking(@PathVariable Integer booking_id) {
-//		Booking booking = booking_service.getBookingById(booking_id);
-//		booking.setIs_active(Boolean.FALSE);
-//		booking.setConfirmation_code(booking_service.generateConfirmationCode());
-//		return ResponseEntity.ok().body(Boolean.TRUE);
-//	}
 	
-	
-
-	
-
-
 	@PostMapping("/add/passenger")
-	public Passenger addPassenger(@RequestBody Passenger passenger) {
-		return booking_service.save(passenger);
+	public ResponseEntity<Passenger> addPassenger(@RequestBody Passenger passenger) {
+		URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/read/passenger=" + passenger.getId())
+				.toUriString());
+		return ResponseEntity.created(uri).body(booking_service.save(passenger));
 	}
 
 	@PostMapping("/add/agent={agent_id}/flight={flight_id}")
@@ -122,10 +109,23 @@ public class BookingController {
 	@PostMapping("/add/user={user_id}/flight={flight_id}")
 	public ResponseEntity<Booking> addBookingByUser(@RequestBody Passenger passenger, @PathVariable Integer user_id,
 			@PathVariable Integer flight_id) {
-		URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/" + passenger.getBooking_id())
+		URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/read/id=" + passenger.getBooking_id())
 				.toUriString());
 
 		return ResponseEntity.created(uri).body(booking_service.saveBookingUserBooking(passenger, user_id, flight_id));
+	}
+	
+	@PostMapping("/add")
+	public ResponseEntity<Booking> addBooking(@RequestBody Booking booking){
+		Optional<Booking> new_booking = booking_service.save(booking);
+		
+		if(new_booking.isEmpty()) {
+			return ResponseEntity.badRequest().build();
+		}
+		
+		URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/read/id=" + booking.getId())
+				.toUriString());
+		return ResponseEntity.created(uri).body(new_booking.get());
 	}
 
 
@@ -185,20 +185,20 @@ public class BookingController {
 ////////////////// These queries provide ALL information of the users.//////////////////
 ////////////////// /////////////////////////////////////////////////////////////////////
 
-	@GetMapping(path = "/user/{username}/bookings")
-	public ResponseEntity<List<Booking>> getUserBooking(@PathVariable String username) {
-		return ResponseEntity.ok().body(booking_service.getBookingByUsername(username));
-	}
-
-	@GetMapping(path = "/user/{username}/bookings/passengers")
-	public ResponseEntity<List<Passenger>> getPassengersFromUsername(@PathVariable String username) {
-		List<Booking> bookings = booking_service.getBookingByUsername(username);
-		List<Passenger> passengers = new ArrayList<>();
-		for (Booking b : bookings) {
-			passengers.addAll(b.getPassengers());
-		}
-		return ResponseEntity.ok().body(passengers);
-	}
+//	@GetMapping(path = "/user/{username}/bookings")
+//	public ResponseEntity<List<Booking>> getUserBooking(@PathVariable String username) {
+//		return ResponseEntity.ok().body(booking_service.getBookingByUsername(username));
+//	}
+//
+//	@GetMapping(path = "/user/{username}/bookings/passengers")
+//	public ResponseEntity<List<Passenger>> getPassengersFromUsername(@PathVariable String username) {
+//		List<Booking> bookings = booking_service.getBookingByUsername(username);
+//		List<Passenger> passengers = new ArrayList<>();
+//		for (Booking b : bookings) {
+//			passengers.addAll(b.getPassengers());
+//		}
+//		return ResponseEntity.ok().body(passengers);
+//	}
 /////////////////////////////////////////////////////////////////////////////////////////
 
 }

@@ -16,6 +16,9 @@ public interface UserRepository extends JpaRepository<User, String>{
 	@Query(value="SELECT u FROM User u LEFT JOIN BookingAgent ba ON ba.agent_id = u.id LEFT JOIN BookingUser bu ON bu.user_id = u.id WHERE bu.booking_id = :booking_id OR ba.booking_id = :booking_id")
 	public Optional<User> findUserByBookingId(@Param("booking_id") Integer booking_id);
 	
+	@Query(value="SELECT u FROM User u WHERE u.id = :user_id")
+	public Optional<User> findById(@Param("user_id") Integer user_id);
+	
 	void deleteById(Integer user_id);
 	
 	Boolean existsById(Integer user_id);

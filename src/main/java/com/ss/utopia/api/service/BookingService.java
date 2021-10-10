@@ -25,6 +25,7 @@ import com.ss.utopia.api.dao.PassengerRepository;
 import com.ss.utopia.api.dao.UserRepository;
 import com.ss.utopia.api.pojo.Booking;
 import com.ss.utopia.api.pojo.BookingAgent;
+import com.ss.utopia.api.pojo.BookingGuest;
 import com.ss.utopia.api.pojo.BookingPayment;
 import com.ss.utopia.api.pojo.BookingType;
 import com.ss.utopia.api.pojo.BookingUser;
@@ -85,19 +86,12 @@ public class BookingService {
 
 	}
 
-	public List<Booking> getBookingByUsername(String username) {
-		return user_repository.findByUsername(username).get().getBookingMethod().stream()
-				.map(b -> ((BookingType) b).getBooking()).collect(Collectors.toList());
-	}
 
 	public Passenger save(Passenger passenger) {
 		return passenger_repository.save(passenger);
 	}
 
-/* Naive Save. Will not properly populate the database. Used for quick testing*/	
-	public Booking save(Booking booking) {
-		return booking_repository.save(booking);
-	}
+
 
 	public List<Flight> getFlightByBookingId(List<Booking> bookings) {
 		return bookings.stream().map(x -> flight_repository.getFlightByBooking(x.getId())).collect(Collectors.toList());
@@ -123,6 +117,57 @@ public class BookingService {
 		booking_repository.deleteById(booking_id);
 	}
 
+/* Naive Save. Will not properly populate the database. Used for quick testing*/
+	
+	@Transactional //TODO use batch saves
+	public Optional<Booking> save(Booking booking) {
+		
+		List<Passenger> passengers = booking.getPassengers();
+		BookingAgent booking_agent = booking.getBooking_agent();
+		BookingUser booking_user = booking.getBooking_user();
+		BookingGuest booking_guest = booking.getBooking_guest();
+		FlightBookings flight_bookings = booking.getFlight_bookings();
+		
+		if(flight_bookings == null || passengers == null || (booking_agent == null && booking_user == null && booking_guest == null)) {
+			return Optional.empty();
+		}
+
+		Booking persist_booking = new Booking(Boolean.TRUE, generateConfirmationCode());
+		persist_booking = booking_repository.save(persist_booking);
+		Integer booking_id = persist_booking.getId();
+		
+		
+		
+		if(booking_agent != null) {
+			booking_agent.setBooking_id(booking_id);
+		}
+		if(booking_user != null) {
+			booking_user.setBooking_id(booking_id);
+		}
+		if(booking_guest != null) {
+			booking_guest.setBooking_id(booking_id);
+		}
+		
+		flight_bookings.setBooking_id(booking_id);
+		
+		
+		BookingPayment booking_payment = new BookingPayment();
+		booking_payment.setBooking_id(booking_id);
+		booking_payment.setRefunded(Boolean.FALSE);
+		booking_payment.setStripe_id(generateStripeId());
+		
+		persist_booking.setPassengers(passengers.stream().peek(x -> x.setBooking_id(booking_id)).collect(Collectors.toList()));
+		persist_booking.setBooking_agent(booking.getBooking_agent());
+		persist_booking.setBooking_user(booking_user);
+		persist_booking.setBooking_guest(booking_guest);
+		
+		persist_booking.setFlight_bookings(flight_bookings);
+		persist_booking.setBooking_payment(booking_payment);
+
+		
+		return Optional.of(persist_booking);
+	}
+	
 	public Booking saveBookingAgentBooking(Passenger passenger, Integer user_id, Integer flight_id) {
 
 		Booking booking = new Booking();

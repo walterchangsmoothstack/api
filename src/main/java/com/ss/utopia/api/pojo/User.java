@@ -31,10 +31,7 @@ public class User {
 	@ManyToOne
 	@JoinColumn(name="role_id")
 	private UserRole user_role;
-	
-//	@ManyToOne
-//	@JoinColumn(name="role_id")
-//	private UserRole user_role;
+
 	
 	
 	public UserRole getUser_role() {
@@ -93,38 +90,6 @@ public class User {
 	}
 
 	
-	
-	public List<?> getBookingMethod() {
-		System.out.println(this.getBookingAgents());
-		if(this.getBookingAgents().isEmpty()) {
-			return this.getBookingUsers();
-		}
-		return this.getBookingAgents();
-	}
-
-	
-	@OneToMany
-	@JoinColumn(name="agent_id", referencedColumnName="id")
-	List<BookingAgent> bookingAgents;
-	
-	@OneToMany
-	@JoinColumn(name="user_id", referencedColumnName="id")
-	List<BookingUser> bookingUsers;
-
-	
-
-	public List<BookingAgent> getBookingAgents() {
-		return bookingAgents;
-	}
-	public void setBookingAgents(List<BookingAgent> bookingAgents) {
-		this.bookingAgents = bookingAgents;
-	}
-	public List<BookingUser> getBookingUsers() {
-		return bookingUsers;
-	}
-	public void setBookingUsers(List<BookingUser> bookingUsers) {
-		this.bookingUsers = bookingUsers;
-	}
 	
 	
 	

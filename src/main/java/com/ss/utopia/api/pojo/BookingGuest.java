@@ -9,16 +9,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="booking_guest")
-public class BookingGuest extends BookingType {
+public class BookingGuest{
 	
 	@Id
 	private Integer booking_id;
 	private String email;
 	private String phone;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="booking_id", referencedColumnName="id")
-	Booking booking;
 
 	@Override
 	public String toString() {
@@ -49,12 +46,6 @@ public class BookingGuest extends BookingType {
 		this.phone = phone;
 	}
 
-	public Booking getBooking() {
-		return booking;
-	}
 
-	public void setBooking(Booking booking) {
-		this.booking = booking;
-	}
 	
 }
