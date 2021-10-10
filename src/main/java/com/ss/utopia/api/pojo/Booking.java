@@ -57,9 +57,7 @@ public class Booking {
 	}
 	
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name="booking_id", nullable=false)
-	//@NotNull
+	@OneToMany(targetEntity=Passenger.class, cascade = CascadeType.ALL, mappedBy="booking_id", fetch = FetchType.EAGER)
 	List<Passenger> passengers;
 	
 	
