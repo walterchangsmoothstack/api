@@ -6,6 +6,8 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -92,6 +94,7 @@ public class BookingService {
 		return passenger_repository.save(passenger);
 	}
 
+/* Naive Save. Will not properly populate the database. Used for quick testing*/	
 	public Booking save(Booking booking) {
 		return booking_repository.save(booking);
 	}
@@ -202,6 +205,67 @@ public class BookingService {
 		return user_repository.findUserByBookingId(booking_id);
 		
 	}
+	
+	@Transactional
+	public Optional<Passenger> update(Passenger passenger){
+		
+		if(!passenger_repository.existsById(passenger.getId())) {
+			return Optional.empty();
+		}
+		
+			
+		Passenger passenger_to_save = passenger_repository.findById(passenger.getId()).get();
+
+		if(passenger.getBooking_id() != null) {
+			if(!booking_repository.existsById(passenger.getBooking_id())) {
+				return Optional.empty();
+			}
+		}
+		
+		
+		if(passenger.getGiven_name() != null ) {
+			passenger_to_save.setGiven_name(passenger.getGiven_name());
+		}
+		if(passenger.getFamily_name() != null) {
+			passenger_to_save.setFamily_name(passenger.getFamily_name());
+		}
+		if(passenger.getAddress() != null) {
+			passenger_to_save.setAddress(passenger.getAddress());
+		}
+		if(passenger.getGender() != null) {
+			passenger_to_save.setGender(passenger.getGender());
+		}
+		if(passenger.getDob() != null) {
+			passenger_to_save.setDob(passenger.getDob());
+		}
+		
+		return Optional.of(passenger_to_save);
+		
+	}
+	
+	
+	@Transactional
+	public Boolean cancelBooking(Integer booking_id) {
+		Booking booking = booking_repository.findById(booking_id).get();
+		booking.setIs_active(Boolean.FALSE);
+		return Boolean.TRUE;
+	}
+	
+	
+	@Transactional
+	public Boolean refundBooking(Integer booking_id) {
+		BookingPayment booking_payment = booking_payment_repository.findById(booking_id).get();
+		booking_payment.setRefunded(Boolean.TRUE);
+		return Boolean.TRUE;
+	}
+	
+	public List<Booking> getCancelledBookings(){
+		return booking_repository.findAll().stream().filter(x -> !x.getIs_active()).collect(Collectors.toList());
+	}
+	public List<BookingPayment> getRefundedBookings(){
+		return booking_payment_repository.findAll().stream().filter(x -> x.getRefunded()).collect(Collectors.toList());
+	}
+	
 
 	public String generateConfirmationCode() {
 		String s = "";
@@ -218,9 +282,6 @@ public class BookingService {
 		return s;
 	}
 
-	public Integer generateBooking_Id() {
-		return 1;
-	}
 	
 	public String generateStripeId() {
 		String s = "";

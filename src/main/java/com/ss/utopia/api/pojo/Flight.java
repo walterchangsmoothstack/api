@@ -15,51 +15,51 @@ public class Flight {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	Integer id;
-	Integer routeId;
-	Integer airplaneId;
-	LocalDateTime departureTime;
-	Integer reservedSeats;
-	Float seatPrice;
+	Integer route_id;
+	Integer airplane_id;
+	LocalDateTime departure_time;
+	Integer reserved_seats;
+	Float seat_price;
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Integer getRouteId() {
-		return routeId;
+	public Integer getRoute_id() {
+		return route_id;
 	}
-	public void setRouteId(Integer routeId) {
-		this.routeId = routeId;
+	public void setRoute_id(Integer route_id) {
+		this.route_id = route_id;
 	}
-	public Integer getAirplaneId() {
-		return airplaneId;
+	public Integer getAirplane_id() {
+		return airplane_id;
 	}
-	public void setAirplaneId(Integer airplaneId) {
-		this.airplaneId = airplaneId;
+	public void setAirplane_id(Integer airplane_id) {
+		this.airplane_id = airplane_id;
 	}
-	public LocalDateTime getDepartureTime() {
-		return departureTime;
+	public LocalDateTime getDeparture_time() {
+		return departure_time;
 	}
-	public void setDepartureTime(LocalDateTime departureTime) {
-		this.departureTime = departureTime;
+	public void setDeparture_time(LocalDateTime departure_time) {
+		this.departure_time = departure_time;
 	}
-	public Integer getReservedSeats() {
-		return reservedSeats;
+	public Integer getReserved_seats() {
+		return reserved_seats;
 	}
-	public void setReservedSeats(Integer reservedSeats) {
-		this.reservedSeats = reservedSeats;
+	public void setReserved_seats(Integer reserved_seats) {
+		this.reserved_seats = reserved_seats;
 	}
-	public Float getSeatPrice() {
-		return seatPrice;
+	public Float getSeat_price() {
+		return seat_price;
 	}
-	public void setSeatPrice(Float seatPrice) {
-		this.seatPrice = seatPrice;
+	public void setSeat_price(Float seat_price) {
+		this.seat_price = seat_price;
 	}
 	@Override
 	public String toString() {
-		return "Flight [id=" + id + ", routeId=" + routeId + ", airplaneId=" + airplaneId + ", departureTime="
-				+ departureTime + ", reservedSeats=" + reservedSeats + ", seatPrice=" + seatPrice + "]";
+		return "Flight [id=" + id + ", route_id=" + route_id + ", airplane_id=" + airplane_id + ", departure_time="
+				+ departure_time + ", reserved_seats=" + reserved_seats + ", seat_price=" + seat_price + "]";
 	}
 	
 

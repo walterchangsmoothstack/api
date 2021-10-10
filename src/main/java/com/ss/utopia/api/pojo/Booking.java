@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,6 +20,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
+
+import com.sun.istack.NotNull;
 
 @Entity
 @Table(name="booking")
@@ -54,7 +57,9 @@ public class Booking {
 	}
 	
 	
-	@OneToMany(targetEntity=Passenger.class, cascade = CascadeType.ALL, orphanRemoval=true)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name="booking_id", nullable=false)
+	//@NotNull
 	List<Passenger> passengers;
 	
 	
