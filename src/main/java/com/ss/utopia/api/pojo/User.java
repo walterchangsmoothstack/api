@@ -2,6 +2,7 @@ package com.ss.utopia.api.pojo;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,9 +27,11 @@ public class User {
 	String password;
 	String phone;
 	
+	public User() {
+		
+	}
 
-
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="role_id")
 	private UserRole user_role;
 

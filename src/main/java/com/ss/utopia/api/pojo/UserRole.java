@@ -15,6 +15,20 @@ public class UserRole {
 	private Integer id;
 	
 	private String name;
+	
+	public UserRole() {
+		
+	}
+	
+	
+
+	public UserRole(Integer id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+
+
 
 	public Integer getId() {
 		return id;

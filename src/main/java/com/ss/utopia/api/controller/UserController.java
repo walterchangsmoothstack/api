@@ -82,11 +82,11 @@ public class UserController {
 	
 	
 	@PostMapping("/add")
-	public ResponseEntity<User> addUser(@RequestBody User user){
+	public ResponseEntity<User> addUser(User user){
 		URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/read/id=" + user.getId())
 				.toUriString());
 		return ResponseEntity.created(uri).body(user_service.save(user));
-	
+
 	}
 	
 	@PostMapping("/add/role")
