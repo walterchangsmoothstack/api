@@ -117,7 +117,6 @@ public class BookingService {
 		booking_repository.deleteById(booking_id);
 	}
 
-/* Naive Save. Will not properly populate the database. Used for quick testing*/
 	
 	@Transactional //TODO use batch saves
 	public Optional<Booking> save(Booking booking) {

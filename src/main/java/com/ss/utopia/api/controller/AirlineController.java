@@ -63,14 +63,6 @@ public class AirlineController {
 	
 
 	
-	@RequestMapping(path = "/traveler", method = RequestMethod.GET)
-	public String welcome1() {
-		return "welcome traveler";
-	}
-	@RequestMapping(path = "/agent", method = RequestMethod.GET)
-	public String welcome2() {
-		return "welcome agent";
-	}
 	
 	
 	
@@ -157,37 +149,28 @@ public class AirlineController {
 	
 	
 	
-	@GetMapping(path = "/airport")
-	public String getAirport(Model model) {
-		model.addAttribute("listAirports", airline_service.findAllAirports());
-		return "showAirports";
-	}
-	@GetMapping(path = "/airport/{airport_code}")
-	public Airport getAirport(@PathVariable String airport_code) {
-		return airport_repository.findById(airport_code).get();
-	}
 	
 
-	@RequestMapping(path = "/airports/{airport_code}", method = RequestMethod.GET)
+	@RequestMapping(path = "read/airports/id={airport_code}", method = RequestMethod.GET)
 	public ResponseEntity<Airport> getAirportById(@PathVariable String airport_code) {
 		return ResponseEntity.ok().body(airline_service.getAirportById(airport_code));
 	}
-	@RequestMapping(path = "/airports", method = RequestMethod.GET)
+	@RequestMapping(path = "read/airports", method = RequestMethod.GET)
 	public ResponseEntity<List<Airport>> findAllAirports() {
 		return ResponseEntity.ok().body(airline_service.findAllAirports());
 	}
 	
-	@RequestMapping(path = "/routes/{route_id}", method = RequestMethod.GET)
+	@RequestMapping(path = "read/routes/{route_id}", method = RequestMethod.GET)
 	public ResponseEntity<Route> getRouteById(@PathVariable Integer route_id) {
 		return ResponseEntity.ok().body(airline_service.getRouteById(route_id));
 	}
 	
-	@RequestMapping(path = "/routes", method = RequestMethod.GET)
+	@RequestMapping(path = "read/routes", method = RequestMethod.GET)
 	public ResponseEntity<List<Route>> findAllRoutes() {
 		return ResponseEntity.ok().body(airline_service.findAllRoutes());
 	}
 	
-	@RequestMapping(path = "/airplanes/{airplane_id}", method = RequestMethod.GET)
+	@RequestMapping(path = "read/airplanes/{airplane_id}", method = RequestMethod.GET)
 	public ResponseEntity<Airplane> getAirplaneById(@PathVariable Integer airplane_id) {
 		return ResponseEntity.ok().body(airline_service.getAirplaneById(airplane_id));
 	}
@@ -195,13 +178,27 @@ public class AirlineController {
 	public ResponseEntity<List<Airplane>> findAllAirplanes() {
 		return ResponseEntity.ok().body(airline_service.findAllAirplanes());
 	}
-	@RequestMapping(path = "/airplane_types/{airplane_type_id}", method = RequestMethod.GET)
+	@RequestMapping(path = "read/airplane_types/{airplane_type_id}", method = RequestMethod.GET)
 	public ResponseEntity<AirplaneType> getAirplaneTypeById(@PathVariable Integer airplane_type_id) {
 		return ResponseEntity.ok().body(airline_service.getAirplaneTypeById(airplane_type_id));
 	}
-	@RequestMapping(path = "/airplane_types", method = RequestMethod.GET)
+	@RequestMapping(path = "read/airplane_types", method = RequestMethod.GET)
 	public ResponseEntity<List<AirplaneType>> findAllAirplaneTypes() {
 		return ResponseEntity.ok().body(airline_service.findAllAirplaneTypes());
+	}
+	
+	@RequestMapping(path = "read/flights", method = RequestMethod.GET)
+	public ResponseEntity<List<Flight>> findAllFlights() {
+		return ResponseEntity.ok().body(airline_service.findAllFlights());
+	}
+	
+	@RequestMapping(path = "read/flights/id={flight_id}", method = RequestMethod.GET)
+	public ResponseEntity<Flight> findFlightById(@PathVariable Integer flight_id) {
+		Optional<Flight> flight = airline_service.findFlightById(flight_id);
+		if(flight.isEmpty()) {
+			return ResponseEntity.badRequest().build();
+		}
+		return ResponseEntity.ok().body(flight.get());
 	}
 	
 	

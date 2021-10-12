@@ -1,10 +1,15 @@
 package com.ss.utopia.api.pojo;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,7 +23,28 @@ public class Route {
 	private String origin_id;
 	private String destination_id;
 	
+	@OneToMany(targetEntity = Flight.class, cascade = CascadeType.ALL, mappedBy = "route_id", fetch = FetchType.EAGER)
+	//@JoinColumn(name = "route_id", referencedColumnName = "id", nullable = true)
+	List<Flight> flights;
+
 	
+	public List<Flight> getFlights() {
+		return flights;
+	}
+
+	public void setFlights(List<Flight> flights) {
+		this.flights = flights;
+	}
+
+
+	
+	public Route() {
+		
+	}
+	
+	public Route(Integer route_id) {
+		this.id = route_id;
+	}
 	public Integer getId() {
 		return id;
 	}

@@ -46,7 +46,6 @@ import com.ss.utopia.api.service.UserService;
 @RequestMapping("/user")
 public class UserController {
 
-	private final String welcomePrompt = "Welcome. What user are you?";
 	
 	@Autowired
 	UserService user_service;

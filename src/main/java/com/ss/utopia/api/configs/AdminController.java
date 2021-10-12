@@ -17,11 +17,7 @@ import com.ss.utopia.api.pojo.Airport;
 public class AdminController {
 	
 	public final String welcome = "Welcome Admin";
-	
-	@RequestMapping()
-	public String welcome() {
-		return "adminHome";
-	}
+
 	
 	
 	
