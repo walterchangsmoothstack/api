@@ -31,7 +31,7 @@ public class User {
 		
 	}
 
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@ManyToOne(optional=false)
 	@JoinColumn(name="role_id")
 	private UserRole user_role;
 

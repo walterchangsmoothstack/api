@@ -62,8 +62,24 @@ public class UserService {
 	}
 	
 	
-	public User save(User user) {
-		return user_repository.save(user);
+	public Optional<User> save(User user) {
+		
+		if(user_repository.findByUsername(user.getUsername()).isPresent()) {
+			return Optional.empty();
+		}
+		if(user_repository.findByEmail(user.getEmail()).isPresent()) {
+			return Optional.empty();
+
+		}
+		if(user_repository.findByPhone(user.getPhone()).isPresent()) {
+			return Optional.empty();
+
+		}
+		
+
+		return Optional.of(user_repository.save(user));
+		
+		
 	}
 	public UserRole save(UserRole user_role) {
 		return user_role_repository.save(user_role);

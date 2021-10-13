@@ -19,6 +19,13 @@ public interface UserRepository extends JpaRepository<User, String>{
 	@Query(value="SELECT u FROM User u WHERE u.id = :user_id")
 	public Optional<User> findById(@Param("user_id") Integer user_id);
 	
+	
+	@Query(value="SELECT u FROM User u WHERE u.email = :email")
+	public Optional<User> findByEmail(@Param("email") String email);
+	
+	@Query(value="SELECT u FROM User u WHERE u.phone = :phone")
+	public Optional<User> findByPhone(@Param("phone") String phone);
+
 	void deleteById(Integer user_id);
 	
 	Boolean existsById(Integer user_id);

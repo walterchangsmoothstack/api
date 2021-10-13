@@ -38,14 +38,15 @@ public class ViewController {
 		return "home";
 	}
 	
-//	@PostMapping("user/add")
-//	public String addUser(@RequestBody User user){
-//
-//		user_service.save(user);
-//		return "register_success";
-//	
-//	}
-//	
+	@PostMapping("/process_registration")
+	public String addUser(User user){
+
+		user.setUser_role(new UserRole(3, null));
+		user_service.save(user);
+		return "register_success";
+	
+	}
+	
 	
 	@RequestMapping(path="/register")
 	public String register(HttpServletRequest request, Model model) {
